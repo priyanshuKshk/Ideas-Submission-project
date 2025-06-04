@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Menu, X ,User} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import logo from "../assets/image.png";
 import Lottie from 'lottie-react';
 import animationData from '../animation/idea.json';
 export default function Header() {
@@ -23,25 +24,28 @@ export default function Header() {
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
         {/* Logo */}
-         
+         <div style={{justifyContent:'space-between', display: 'flex', alignItems: 'center'}}>
           <Link to={"/"}>
             <img
               src={logo}
               alt="SMG-scholarships"
               className="w-10 h-10 rounded-full object-cover border-2 border-gray-300"
               style={{
-                maxWidth: "60px",
-                maxHeight: "60px",
+                maxWidth: "250px",
+                maxHeight: "55px",
                 padding: "4px",
+                marginRight: "10px",
+                marginBottom:'2px',
               }}
             />
           </Link>
-        <Link to="/home" className="text-xl font-bold text-blue-600" style={{ display: 'flex', alignItems: 'center',color: '#073763', fontSize: '1.5rem',  }}>
+        <Link to="/home" className="text-xl font-bold text-blue-600" style={{ display: 'flex', alignItems: 'center',color: '#073763', fontSize: '1.5rem', }}>
           IMAGINE
            <div style={{ width: 50, height: 50 , display: 'flex', marginLeft: 10}}>
       <Lottie animationData={animationData} loop={true} />
     </div>
         </Link>
+        </div>
 
         {/* Desktop Menu */}
         <nav className=" md:flex space-x-6 text-gray-700 font-medium"
