@@ -36,7 +36,7 @@ const Login = () => {
  // Only call if login is defined
 
         // Navigate to home
-        navigate("/home");
+        navigate("/");
       } else if (result.data === "Invalid password") {
         alert("Wrong password");
       } else if (result.data === "User not found") {
