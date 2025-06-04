@@ -85,9 +85,6 @@ function MyIdeasPage() {
               whileHover={{ scale: 1.05, boxShadow: "4px 4px 15px rgba(0,0,0,0.2)" }}
             >
               <p>
-                <strong>Submitted By:</strong> {idea.submittedBy}
-              </p>
-              <p>
                 <strong>Idea Title:</strong> {idea.ideaTitle} <FiFileText style={{ verticalAlign: "middle" }} />
               </p>
               <p>
