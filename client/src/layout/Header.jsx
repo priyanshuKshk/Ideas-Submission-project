@@ -23,8 +23,12 @@ export default function Header() {
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
         {/* Logo */}
-        <Link to="/home" className="text-xl font-bold text-blue-600" style={{ display: 'flex', alignItems: 'center',color: '#073763' }}>
-          SMG Imagine
+         {/* <div className="flex items-center space-x-2">
+    <img src={logo} alt="Logo" className="h-10 w-auto" />
+    <h1 className="text-xl font-bold">Your Site Name</h1> 
+  </div>*/}
+        <Link to="/home" className="text-xl font-bold text-blue-600" style={{ display: 'flex', alignItems: 'center',color: '#073763', fontSize: '1.5rem',  }}>
+          IMAGINE
            <div style={{ width: 50, height: 50 , display: 'flex', marginLeft: 10}}>
       <Lottie animationData={animationData} loop={true} />
     </div>
