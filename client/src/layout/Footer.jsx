@@ -27,7 +27,7 @@ export default function Footer() {
               <FaPhoneAlt className="text-blue-300" /> 1882318708
             </li>
             <li className="flex items-center gap-2">
-              <FaEnvelope className="text-blue-300" /> EFA@gmail.com
+              <FaEnvelope className="text-blue-300" /> smgelectricscootersltd@gmail.com
             </li>
           </ul>
         </div>

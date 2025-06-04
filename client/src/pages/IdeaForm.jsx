@@ -49,8 +49,7 @@ const userId = localStorage.getItem("userId");
 
 
       const response = await fetch(
-        //"http://localhost:3001/api/submit-idea"
-        "https://ideas-submission-project-1.onrender.com/api/submit-idea"
+        `${API_URL}/submit-idea` 
         , {
         method: "POST",
          headers: {
@@ -95,11 +94,11 @@ alert("idea is not submitted");
   financialReport: null,
 });
 setSubmitted(true);
-    // Optionally, redirect or show success message
-    // setTimeout(() => {
-    //   setSubmitted(false);
-    //   navigate("/my-ideas");
-    // }, 2000);
+  //  Optionally, redirect or show success message
+    setTimeout(() => {
+      setSubmitted(false);
+      navigate("/my-ideas");
+    }, 2000);
 
   };
 

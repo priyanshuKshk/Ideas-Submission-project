@@ -10,8 +10,7 @@ function MyIdeasPage() {
     const token = localStorage.getItem('token');
 
     fetch(
-      //'http://localhost:3001/api/my-ideas'
-      "https://ideas-submission-project-1.onrender.com/api/my-ideas"
+    `${API_URL}/my-ideas` 
       , {
       headers: {
         Authorization: `Bearer ${token}`,

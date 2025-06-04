@@ -6,8 +6,7 @@ import { FiUser, FiMail, FiLock } from "react-icons/fi";
 import { FaPhoneAlt } from "react-icons/fa";
  import { useAuth } from '../context/AuthContext';
 import { login } from '../utils/auth';
-//import axios from 'axios';
-
+import { User } from "lucide-react";
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -17,6 +16,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   // const { login } = useAuth();
+  const { isLoggedIn, user } = useAuth();
   const handleSignUp = (e) => {
     e.preventDefault();
 
@@ -27,8 +27,7 @@ const SignUp = () => {
 
   axios
   .post(
-  //  "http://localhost:3001/sign-up"
-    "https://ideas-submission-project-1.onrender.com/sign-up"
+  `${API_URL}/sign-up` 
     , {
     firstName,
     lastName,
@@ -45,7 +44,7 @@ const SignUp = () => {
       localStorage.setItem("user", JSON.stringify(user));
 
       // ✅ Optional: if using context API
-      login?.(user);
+        login(user, token, user.profileImage || "");
 
       alert(message || "Signup successful!");
       navigate("/home");
