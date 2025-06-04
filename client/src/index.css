@@ -1,0 +1,6 @@
+/* Hide element on screens smaller than 640px */
+@media (max-width: 740px) {
+  .hide-on-small {
+    display: none;
+  }
+}
