@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -15,7 +16,7 @@ const Login = () => {
 
   const handleLogin = (e) => {
   e.preventDefault(); // ✅ Prevent the form's default action first
-
+const API_URL = process.env.REACT_APP_API_URL;
   axios
     .post(
   `${API_URL}/login`

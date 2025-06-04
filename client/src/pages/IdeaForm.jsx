@@ -46,7 +46,7 @@ const handleChange = (e) => {
       const token = localStorage.getItem("token");
 const userId = localStorage.getItem("userId");
     try {
-
+const API_URL = process.env.REACT_APP_API_URL;
 
       const response = await fetch(
         `${API_URL}/submit-idea` 
