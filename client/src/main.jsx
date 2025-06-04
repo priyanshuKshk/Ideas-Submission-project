@@ -23,10 +23,8 @@ import MyIdeasPage from "./pages/MyIdeasPage.jsx";
 import Layout from "./layout/Layout.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App/>}>
-    
-
-      <Route path="/home" element={<Home />} />
+    <Route path="/" element={<App/>}>   
+      <Route path="/" element={<Home />} />
 
       <Route path="/login" element={<Login />} />
       <Route path="/sign-up" element={<SignUp />} />
