@@ -26,7 +26,10 @@ const SignUp = () => {
     }
 
   axios
-  .post("http://localhost:3001/sign-up", {
+  .post(
+  //  "http://localhost:3001/sign-up"
+    "https://ideas-submission-project-1.onrender.com/sign-up"
+    , {
     firstName,
     lastName,
     phone,

@@ -48,7 +48,10 @@ const userId = localStorage.getItem("userId");
     try {
 
 
-      const response = await fetch("http://localhost:3001/api/submit-idea", {
+      const response = await fetch(
+        //"http://localhost:3001/api/submit-idea"
+        "https://ideas-submission-project-1.onrender.com/api/submit-idea"
+        , {
         method: "POST",
          headers: {
       Authorization: `Bearer ${token}`, // ✅ add this line!
