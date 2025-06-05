@@ -7,6 +7,7 @@ import { FiMail, FiLock } from 'react-icons/fi';
 //import { useAuth } from '../context/AuthContext';
 import { login } from '../utils/auth';
 import { useAuth } from '../context/AuthContext';
+import LoadingSpinner from './LoadingSpinner';
 const Login = () => {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
@@ -64,6 +65,9 @@ const API_URL = import.meta.env.VITE_API_URL;
   }
 
   return (
+    loading ? (
+  <LoadingSpinner />
+) : (
     <div className="tagesschrift-regular flex justify-center items-center min-h-screen bg-gray-100">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -155,7 +159,7 @@ const API_URL = import.meta.env.VITE_API_URL;
           </p>
         </div>
       </motion.div>
-    </div>
+    </div>)
   );
 };
 

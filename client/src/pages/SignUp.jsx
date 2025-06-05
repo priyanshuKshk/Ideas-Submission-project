@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { FiUser, FiMail, FiLock } from "react-icons/fi";
 import { FaPhoneAlt } from "react-icons/fa";
  import { useAuth } from '../context/AuthContext';
+ import LoadingSpinner from './LoadingSpinner';
 import { login } from '../utils/auth';
 import { User } from "lucide-react";
 const SignUp = () => {
@@ -24,6 +25,7 @@ const SignUp = () => {
 setLoading(true);
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
+      setLoading(false); 
       return;
     }
 const API_URL = import.meta.env.VITE_API_URL;
@@ -62,6 +64,7 @@ const API_URL = import.meta.env.VITE_API_URL;
       alert("Signup failed: No token received");
     
     }
+    setLoading(false); 
   })
   .catch((err) => {
   const errorMessage =
@@ -73,11 +76,15 @@ const API_URL = import.meta.env.VITE_API_URL;
   } else {
     alert(errorMessage);
   }
+  setLoading(false);
 });
-    setLoading(false);
+  
   }
 
   return (
+    loading ? (
+  <LoadingSpinner />
+) : (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
@@ -288,7 +295,7 @@ const API_URL = import.meta.env.VITE_API_URL;
           </p>
         </div>
       </motion.div>
-    </div>
+    </div>)
   );
 };
 

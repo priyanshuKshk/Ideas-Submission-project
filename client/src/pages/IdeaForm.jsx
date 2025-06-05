@@ -2,6 +2,7 @@ import { FileText, Icon } from "lucide-react";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
+import LoadingSpinner from "./LoadingSpinner";
 // import generateToken from "../../../server/utils/generateToken";
 export default function IdeaForm() {
   const [title, setTitle] = useState("");
@@ -96,6 +97,9 @@ const [loading, setLoading] = useState(false);
   };
 
   return (
+    loading ? (
+  <LoadingSpinner />
+) : (
     <div className="min-h-screen bg-gray-50 p-6 flex flex-col items-center justify-center">
       <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-xl">
         <h1 className="text-3xl font-bold mb-6 text-center">
@@ -191,6 +195,6 @@ const [loading, setLoading] = useState(false);
           )}
         </form>
       </div>
-    </div>
+    </div>)
   );
 }
