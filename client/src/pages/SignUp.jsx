@@ -14,12 +14,14 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [hover, setHover] = useState(false);
   const navigate = useNavigate();
   // const { login } = useAuth();
   const { login } = useAuth();
   const handleSignUp = (e) => {
     e.preventDefault();
-
+setLoading(true);
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
@@ -72,7 +74,7 @@ const API_URL = import.meta.env.VITE_API_URL;
     alert(errorMessage);
   }
 });
-
+    setLoading(false);
   }
 
   return (
@@ -268,7 +270,10 @@ const API_URL = import.meta.env.VITE_API_URL;
             whileTap={{ scale: 0.97 }}
             type="submit"
             onClick={handleSignUp}
+              onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
             className="w-full py-3 bg-blue-900 text-white rounded-md hover:bg-blue-600 focus:outline-none transition-all"
+            style={{backgroundColor: hover ? '#0b5394' : '#073763',}}
           >
             Sign Up
           </motion.button>

@@ -10,6 +10,8 @@ export default function IdeaForm() {
 
   const navigate = useNavigate();
   const [fileInput, setFileInput] = useState();
+const [loading, setLoading] = useState(false);
+ const [hover, setHover] = useState(false);
   const [formData, SetFormData] = useState({
     ideaTitle: "",
     description: "",
@@ -28,6 +30,7 @@ export default function IdeaForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const data = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
       if (key !== "ideaProfile" && key !== "financialReport") {
@@ -64,6 +67,8 @@ export default function IdeaForm() {
     } catch (error) {
       console.error("submit failed:", error);
       alert("idea is not submitted");
+    }finally {
+      setLoading(false);
     }
     const newIdea = {
       ideaTitle: formData.ideaTitle,
@@ -160,7 +165,10 @@ export default function IdeaForm() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
             type="submit"
+              onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
             className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition"
+            style={{backgroundColor: hover ? '#0b5394' : '#073763', cursor: 'pointer',transition: 'background-color 0.3s ease',}}
           >
             Submit Idea
           </motion.button>
@@ -172,8 +180,11 @@ export default function IdeaForm() {
               </p>
               <button
                 onClick={() => navigate("/ideas")} // or use <Link to="/ideas" />
-                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
-              >
+                  onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+                className=" text-white font-semibold py-2 px-4 rounded"
+              style={{backgroundColor: hover ? '#0b5394' : '#073763', cursor: 'pointer',transition: 'background-color 0.3s ease',}}
+            >
                 View My Ideas
               </button>
             </div>

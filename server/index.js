@@ -8,10 +8,7 @@ const fs = require("fs");
 const app = express();
 app.use(express.json());
 require("dotenv").config();
-app.use(cors({
-  origin: 'https://ideas-submission-project.onrender.com', // your frontend domain
-  credentials: true // only if you're sending cookies or auth headers
-}));
+app.use(cors({ origin: '*' }));
 const router = express.Router();
 const signupLoginRoutes = require("./routes/signupLogin"); // adjust the path if needed
 const authMiddleware = require("./middleware/authMiddleware");

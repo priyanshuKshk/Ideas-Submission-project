@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Lottie from "lottie-react";
 import animationData from "../animation/homeIdea.json";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,8 @@ import { Lightbulb } from "lucide-react";
 import '../index.css'
 export default function Home() {
   const navigate = useNavigate();
-
+ const [hoverView, setHoverView] = useState(false);
+  const [hoverSubmit, setHoverSubmit] = useState(false);
   const handleGoToForm = () => {
     navigate("/submit-idea");
   };
@@ -58,15 +59,19 @@ Your creativity could spark something amazing. Whether it's a product improvemen
               <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={() => navigate("/my-ideas")}
+                onMouseEnter={() => setHoverView(true)}
+                onMouseLeave={() => setHoverView(false)}
                 className=" hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl shadow-md transition-all duration-300"
-              style={{backgroundColor:'#073763',padding:'20px', margin:'5px'}}>
+              style={{backgroundColor: hoverView ? '#0b5394' : '#073763',padding:'20px', margin:'5px' , cursor: 'pointer',transition: 'background-color 0.3s ease',}}>
                 View Ideas
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={handleGoToForm}
-                className=" hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl shadow-md transition-all duration-300"
-              style={{backgroundColor:'#073763' ,padding:'20px', margin:'5px'}}>
+                onMouseEnter={() => setHoverSubmit(true)}
+                onMouseLeave={() => setHoverSubmit(false)}
+                className=" text-white font-semibold py-3 px-6 rounded-xl shadow-md transition-all duration-300"
+              style={{backgroundColor: hoverSubmit ? '#0b5394' : '#073763' ,padding:'20px', margin:'5px', cursor: 'pointer',transition: 'background-color 0.3s ease',}}>
                 Submit Your Idea
               </motion.button>
             </div>

@@ -12,10 +12,13 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+   const [hover, setHover] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
-  e.preventDefault(); // ✅ Prevent the form's default action first
+  e.preventDefault();
+  setLoading(true); // ✅ Prevent the form's default action first
 const API_URL = import.meta.env.VITE_API_URL;
   axios
     .post(
@@ -47,8 +50,7 @@ const API_URL = import.meta.env.VITE_API_URL;
   .catch((err) => {
   const errorMessage =
     err.response?.data?.error || err.response?.data?.message || "Login failed";
-
-  console.log("Login error:", errorMessage);
+    setLoading(false);
 
   if (errorMessage === "User does not exist") {
     alert("User not found. Please sign up.");
@@ -125,8 +127,10 @@ const API_URL = import.meta.env.VITE_API_URL;
       {!isLoggedIn ? (
         <motion.button
           onClick={handleLogin}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-      style={{backgroundColor:'#073763' , borderRadius:'8px'}}  >
+            onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+          className=" text-white px-4 py-2 rounded"
+      style={{backgroundColor: hover ? '#0b5394' : '#073763'  , transition: 'background-color 0.3s ease',  cursor: 'pointer',borderRadius:'8px'}}  >
           Login
         </motion.button>
       ) : (
