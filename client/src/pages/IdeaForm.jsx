@@ -47,7 +47,7 @@ export default function IdeaForm() {
       const API_URL = import.meta.env.VITE_API_URL;
 
       const response = await fetch(
-        `${API_URL}/submit-idea`
+        `${API_URL}/api/submit-idea`
         , {
         method: "POST",
         headers: {
