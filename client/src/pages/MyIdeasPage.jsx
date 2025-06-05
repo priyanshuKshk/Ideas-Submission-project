@@ -1,34 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FiFileText, FiAlertCircle, FiDownload } from "react-icons/fi";
 import jsPDF from "jspdf";
+import LoadingSpinner from "./LoadingSpinner";
 function MyIdeasPage() {
   const [ideas, setIdeas] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-const API_URL = import.meta.env.VITE_API_URL;
-    fetch(
-    `${API_URL}/api/my-ideas` 
-      , {
+    const token = localStorage.getItem("token");
+    const API_URL = import.meta.env.VITE_API_URL;
+    fetch(`${API_URL}/api/my-ideas`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        setIdeas(data);
+        if (Array.isArray(data)) {
+          setIdeas(data);
+        } else {
+          setIdeas([]);
+        }
+
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Error fetching ideas:', err);
+        // console.error('Error fetching ideas:', err);
         setLoading(false);
       });
   }, []);
 
-  if (loading) return <div>Loading your ideas...</div>;
- const exportIdeaPDF = (idea) => {
+  const exportIdeaPDF = (idea) => {
     const doc = new jsPDF();
     doc.setFontSize(20);
     doc.text(idea.ideaTitle, 10, 20);
@@ -36,11 +39,17 @@ const API_URL = import.meta.env.VITE_API_URL;
     doc.text(`Submitted By: ${idea.submittedBy}`, 10, 30);
     doc.text(`Description: ${idea.description}`, 10, 40);
     doc.text(`Impact: ${idea.impact}`, 10, 50);
-    doc.text(`Submitted On: ${new Date(idea.createdAt).toLocaleDateString()}`, 10, 60);
+    doc.text(
+      `Submitted On: ${new Date(idea.createdAt).toLocaleDateString()}`,
+      10,
+      60
+    );
     doc.save(`${idea.ideaTitle}.pdf`);
   };
-  return (
-      <div>
+  return loading ? (
+    <LoadingSpinner />
+  ) : (
+    <div>
       <h1
         className="text-xl sm:text-xl font-extrabold text-indigo-700 mb-2"
         style={{ fontSize: "2.5rem", color: "#073763" }}
@@ -54,16 +63,17 @@ const API_URL = import.meta.env.VITE_API_URL;
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="flex items-center gap-2 text-gray-600"
-          style={{minHeight:"400px", justifyContent: "center", alignItems: "center"}}
+          style={{
+            minHeight: "400px",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           <FiAlertCircle size={24} color="#073763" />
-          <h1
-        className="text-4xl sm:text-xl font-extrabold mb-2"
-      
-      >
-        You have not submitted any ideas yet.
-      </h1>
-        </motion.div>  
+          <h1 className="text-4xl sm:text-xl font-extrabold mb-2">
+            You have not submitted any ideas yet.
+          </h1>
+        </motion.div>
       ) : (
         <motion.div
           style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}
@@ -84,10 +94,14 @@ const API_URL = import.meta.env.VITE_API_URL;
                 backgroundColor: "#fff",
                 position: "relative",
               }}
-              whileHover={{ scale: 1.05, boxShadow: "4px 4px 15px rgba(0,0,0,0.2)" }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "4px 4px 15px rgba(0,0,0,0.2)",
+              }}
             >
               <p>
-                <strong>Idea Title:</strong> {idea.ideaTitle} <FiFileText style={{ verticalAlign: "middle" }} />
+                <strong>Idea Title:</strong> {idea.ideaTitle}{" "}
+                <FiFileText style={{ verticalAlign: "middle" }} />
               </p>
               <p>
                 <strong>Idea Description:</strong> {idea.description}
@@ -96,17 +110,27 @@ const API_URL = import.meta.env.VITE_API_URL;
                 <strong>Impact:</strong> {idea.impact}
               </p>
               <p>
-                <a href={idea.ideaProfile} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={idea.ideaProfile}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <strong>View Idea Profile</strong>
                 </a>
               </p>
               <p>
-                <a href={idea.financialReport} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={idea.financialReport}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <strong>View Financial Report</strong>
                 </a>
               </p>
               <p>
-                <small>Submitted on: {new Date(idea.createdAt).toLocaleDateString()}</small>
+                <small>
+                  Submitted on: {new Date(idea.createdAt).toLocaleDateString()}
+                </small>
               </p>
 
               <button

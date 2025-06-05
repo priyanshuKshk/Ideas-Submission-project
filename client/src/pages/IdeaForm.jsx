@@ -66,7 +66,7 @@ const [loading, setLoading] = useState(false);
         navigate("/login");
       }
     } catch (error) {
-      console.error("submit failed:", error);
+      // console.error("submit failed:", error);
       alert("idea is not submitted");
     }finally {
       setLoading(false);

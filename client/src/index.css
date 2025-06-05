@@ -1,6 +1,40 @@
-/* Hide element on screens smaller than 640px */
-@media (max-width: 740px) {
-  .hide-on-small {
-    display: none;
+@media (max-width: 1240px) {
+    #myElement {
+      display: none;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      gap: 0;
+
+    
+    }
+    #displayBlock{
+        display: block;
+    }
+  
   }
-}
+  
+@media (min-width: 820px) {
+    
+    .displayFlex{
+        display: flex;
+    }
+  }
+@media (max-width: 400px) {
+    
+    #displayNone{
+        display: none;
+        
+    }
+    #displayBorder{
+        border: 0;
+      
+        
+    }
+    
+
+      #paddingLow{
+padding: 0;
+    } 
+  }
+  
