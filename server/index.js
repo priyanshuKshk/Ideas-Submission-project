@@ -15,10 +15,16 @@ app.use(cors({
 const router = express.Router();
 const signupLoginRoutes = require("./routes/signupLogin"); // adjust the path if needed
 const authMiddleware = require("./middleware/authMiddleware");
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+const uri = process.env.MONGO_URI;
+
+if (!uri) {
+  console.error('MongoDB URI is not defined. Check your .env file or environment variables.');
+  process.exit(1);
+}
+
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected successfully'))
+  .catch((err) => console.error('MongoDB connection error:', err));
 
 const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) {
