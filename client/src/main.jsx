@@ -14,7 +14,6 @@ import App from "./App.jsx";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import SignUp from "./pages/SignUp.jsx";
-import ContactUs from "./pages/ContactUs.jsx";
 // main.jsx (or index.jsx)
 import { AuthProvider } from "./context/AuthContext"; // ✅ use relative local path
 
@@ -23,16 +22,14 @@ import MyIdeasPage from "./pages/MyIdeasPage.jsx";
 import Layout from "./layout/Layout.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App/>}>   
+    <Route path="/" element={<App />}>
       <Route path="/" element={<Home />} />
       <Route path="/home" element={<Home />} />
 
       <Route path="/login" element={<Login />} />
       <Route path="/sign-up" element={<SignUp />} />
-      <Route path="/contact" element={<ContactUs />} />
       <Route path="/submit-idea" element={<IdeaForm />} />
-      <Route path="/my-ideas" element={<MyIdeasPage/>} />
-    
+      <Route path="/my-ideas" element={<MyIdeasPage />} />
     </Route>
   )
 );

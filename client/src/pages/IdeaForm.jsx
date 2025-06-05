@@ -17,15 +17,14 @@ export default function IdeaForm() {
     impact: "",
     financialReport: null,
   });
-const handleChange = (e) => {
-  const { name, value, files } = e.target;
-  SetFormData({
-    ...formData,
-    [name]: name === "ideaProfile" || name === "financialReport"
-      ? files[0]
-      : value,
-  });
-};
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    SetFormData({
+      ...formData,
+      [name]:
+        name === "ideaProfile" || name === "financialReport" ? files[0] : value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,9 +32,9 @@ const handleChange = (e) => {
     Object.entries(formData).forEach(([key, value]) => {
       if (key !== "ideaProfile" && key !== "financialReport") {
         if (value) data.append(key, value);
-  } else {
-    data.append(key, value);
-  }
+      } else {
+        data.append(key, value);
+      }
     });
     if (fileInput) {
       data.append("IdeaProfile", fileInput);
@@ -43,63 +42,50 @@ const handleChange = (e) => {
     if (fileInput) {
       data.append("FinancialReport", fileInput);
     }
-      const token = localStorage.getItem("token");
-const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
     try {
-const API_URL = process.env.REACT_APP_API_URL;
+      const API_URL = import.meta.env.VITE_API_URL;
 
-      const response = await fetch(
-        `${API_URL}/submit-idea` 
-        , {
+      const response = await fetch(`${API_URL}/submit-idea`, {
         method: "POST",
-         headers: {
-      Authorization: `Bearer ${token}`, // ✅ add this line!
-    },
+        headers: {
+          Authorization: `Bearer ${token}`, // ✅ add this line!
+        },
         body: data,
       });
       if (response.ok) {
         navigate("/my-ideas");
-
-      }else{
-        const errorText =await response.text();
+      } else {
         alert("login to submit idea");
-
+        navigate("/login");
       }
     } catch (error) {
-console.error("submit failed:" , error);
-alert("idea is not submitted");
-
-
+      console.error("submit failed:", error);
+      alert("idea is not submitted");
     }
-  const newIdea = {
-  ideaTitle: formData.ideaTitle,
-  description: formData.description,
-  ideaProfile: formData.ideaProfile,
-  impact: formData.impact,
-  financialReport: formData.financialReport,
-  date: new Date().toISOString(),
-};
-
+    const newIdea = {
+      ideaTitle: formData.ideaTitle,
+      description: formData.description,
+      ideaProfile: formData.ideaProfile,
+      impact: formData.impact,
+      financialReport: formData.financialReport,
+      date: new Date().toISOString(),
+    };
 
     // ✅ Save to localStorage
     const existingIdeas = JSON.parse(localStorage.getItem("ideas")) || [];
     localStorage.setItem("ideas", JSON.stringify([...existingIdeas, newIdea]));
 
     // Clear form
-  SetFormData({
-  ideaTitle: "",
-  description: "",
-  ideaProfile: null,
-  impact: "",
-  financialReport: null,
-});
-setSubmitted(true);
-  //  Optionally, redirect or show success message
-    setTimeout(() => {
-      setSubmitted(false);
-      navigate("/my-ideas");
-    }, 2000);
-
+    SetFormData({
+      ideaTitle: "",
+      description: "",
+      ideaProfile: null,
+      impact: "",
+      financialReport: null,
+    });
+    setSubmitted(true);
+    //  Optionally, redirect or show success message
   };
 
   return (
@@ -109,14 +95,23 @@ setSubmitted(true);
           Submit Your Idea 💡
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
-          { [
- { label: "Idea Title", name: "ideaTitle", type: "text", Icon: FileText },
-  { label: "Description", name: "description", type: "textarea", Icon: FileText },
+          {[
+            {
+              label: "Idea Title",
+              name: "ideaTitle",
+              type: "text",
+              Icon: FileText,
+            },
+            {
+              label: "Description",
+              name: "description",
+              type: "textarea",
+              Icon: FileText,
+            },
 
-  { label: "Impact", name: "impact", type: "text", Icon: FileText },
-
-].map(({label,name,type,Icon})=>(
-  <div key={name}>
+            { label: "Impact", name: "impact", type: "text", Icon: FileText },
+          ].map(({ label, name, type, Icon }) => (
+            <div key={name}>
               <label className="text-gray-900 mb-2 flex items-center gap-2">
                 <Icon className="h-5 w-5 text-blue-700" />
                 {label}
@@ -125,16 +120,17 @@ setSubmitted(true);
                 type={type}
                 name={name}
                 value={formData[name]}
-              placeholder={`Enter your ${label.toLowerCase()}`}
-
+                placeholder={`Enter your ${label.toLowerCase()}`}
                 onChange={handleChange}
                 required
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
               />
             </div>
-))}
-  <div>
-            <label className="block text-gray-900 mb-2">Upload Idea Profile (PDF/JPG/PNG)</label>
+          ))}
+          <div>
+            <label className="block text-gray-900 mb-2">
+              Upload Idea Profile (PDF/JPG/PNG)
+            </label>
             <input
               type="file"
               name="ideaProfile"
@@ -144,8 +140,10 @@ setSubmitted(true);
               className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white"
             />
           </div>
-            <div>
-            <label className="block text-gray-900 mb-2">Upload Financial Report (PDF/JPG/PNG)</label>
+          <div>
+            <label className="block text-gray-900 mb-2">
+              Upload Financial Report (PDF/JPG/PNG)
+            </label>
             <input
               type="file"
               name="financialReport"
@@ -155,7 +153,7 @@ setSubmitted(true);
               className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white"
             />
           </div>
-          
+
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}

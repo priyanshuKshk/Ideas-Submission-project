@@ -16,7 +16,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   // const { login } = useAuth();
-  const { isLoggedIn, user } = useAuth();
+  const { login } = useAuth();
   const handleSignUp = (e) => {
     e.preventDefault();
 
@@ -24,7 +24,8 @@ const SignUp = () => {
       alert("Passwords do not match!");
       return;
     }
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
+
   axios
   .post(
   `${API_URL}/sign-up` 
@@ -38,7 +39,8 @@ const API_URL = process.env.REACT_APP_API_URL;
   .then((res) => {
     const { token, user, message } = res.data;
 
-    if (token) {
+    if ( user, message,token) {
+      
       // ✅ Save the token & user to localStorage
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
@@ -47,16 +49,21 @@ const API_URL = process.env.REACT_APP_API_URL;
         login(user, token, user.profileImage || "");
 
       alert(message || "Signup successful!");
-      navigate("/home");
+       setFirstName("");
+        setLastName("");
+        setPhone("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+      navigate("/");
     } else {
       alert("Signup failed: No token received");
+    
     }
   })
   .catch((err) => {
   const errorMessage =
     err.response?.data?.error || err.response?.data?.message || "Signup failed";
-
-  console.log("Signup error:", errorMessage);
 
   if (errorMessage === "User already exists") {
     alert("User already exists. Redirecting to login...");

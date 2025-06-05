@@ -8,9 +8,8 @@ import Lottie from 'lottie-react';
 import animationData from '../animation/idea.json';
 export default function Header() {
   const { isLoggedIn, user, logout } = useAuth()
-  const [isOpen, setIsOpen] = useState(false);
+  
 
-  const toggleMenu = () => setIsOpen(!isOpen);
 
   const navigate = useNavigate();
 
