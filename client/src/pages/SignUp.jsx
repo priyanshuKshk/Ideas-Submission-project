@@ -24,12 +24,11 @@ const SignUp = () => {
       alert("Passwords do not match!");
       return;
     }
-
+const API_URL = import.meta.env.VITE_API_URL;
 
   axios
   .post(
-  "https://ideas-submission-project-1.onrender.com/sign-up" 
-//http://localhost:5000/sign-up 
+  `${API_URL}/sign-up` 
     , {
     firstName,
     lastName,

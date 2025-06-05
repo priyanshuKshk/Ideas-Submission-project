@@ -16,12 +16,10 @@ const Login = () => {
 
   const handleLogin = (e) => {
   e.preventDefault(); // ✅ Prevent the form's default action first
-
+const API_URL = import.meta.env.VITE_API_URL;
   axios
     .post(
-"https://ideas-submission-project-1.onrender.com/login" 
-//http://localhost:5000/login
-
+  `${API_URL}/login`
       , {
       email,
       password,

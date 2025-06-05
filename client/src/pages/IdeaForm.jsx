@@ -47,8 +47,7 @@ export default function IdeaForm() {
       const API_URL = import.meta.env.VITE_API_URL;
 
       const response = await fetch(
-        "https://ideas-submission-project-1.onrender.com/submit-idea" 
-//http://localhost:5000/login
+        `${API_URL}/submit-idea`
         , {
         method: "POST",
         headers: {
