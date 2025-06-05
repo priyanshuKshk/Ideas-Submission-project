@@ -46,7 +46,10 @@ export default function IdeaForm() {
     try {
       const API_URL = import.meta.env.VITE_API_URL;
 
-      const response = await fetch(`${API_URL}/submit-idea`, {
+      const response = await fetch(
+        "https://ideas-submission-project-1.onrender.com/submit-idea" 
+//http://localhost:5000/login
+        , {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`, // ✅ add this line!

@@ -10,7 +10,8 @@ function MyIdeasPage() {
     const token = localStorage.getItem('token');
 const API_URL = import.meta.env.VITE_API_URL;
     fetch(
-    `${API_URL}/my-ideas` 
+  "https://ideas-submission-project-1.onrender.com/my-ideas" 
+//http://localhost:5000/my-ideas
       , {
       headers: {
         Authorization: `Bearer ${token}`,
