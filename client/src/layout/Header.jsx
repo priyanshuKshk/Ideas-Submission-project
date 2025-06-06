@@ -37,7 +37,7 @@ export default function Header() {
               className="w-10 h-10 rounded-full object-cover border-2 border-gray-300"
               style={{
                 maxWidth: "250px",
-                maxHeight: "55px",
+                maxHeight: "50px",
                 padding: "4px",
                 marginRight: "10px",
                 marginBottom: "2px",
@@ -46,7 +46,7 @@ export default function Header() {
           </Link>
           <Link
             to="/home"
-            className=" font-bold"
+            className=" font-bold playfair-display"
             id="myElement"
             style={{
               display: "flex",
@@ -152,16 +152,20 @@ export default function Header() {
           ) : (
             <>
               {user && (
-                <div className="flex items-center gap-2">
-                  <User className="text-indigo-600 w-4 h-4" />
-                  <span>
-                    {user.firstName} {user.lastName}
+                <div className="flex items-center gap-2"
+                
+                >
+                  <User className="text-indigo-600 w-4 h-4"
+                id="myElement"/>
+                  <span id="myElement">
+                    {user.firstName}
                   </span>
                 </div>
               )}
               <button
                 onClick={handleLogout}
                 className="text-red-600 font-semibold"
+                
               >
                 Logout
               </button>

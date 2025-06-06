@@ -37,4 +37,10 @@
 padding: 0;
     } 
   }
-  
+  .playfair-display {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 800; /* or 500, 600, 700 etc. */
+  font-style: bold;
+
+}
