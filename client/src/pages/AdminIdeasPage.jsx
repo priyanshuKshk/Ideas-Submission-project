@@ -1,55 +1,37 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext"; // assuming you store user/token here
+import { FiAlertCircle, FiDownload, FiFileText } from "react-icons/fi";
 import { motion } from "framer-motion";
-import { FiFileText, FiAlertCircle, FiDownload } from "react-icons/fi";
-import jsPDF from "jspdf";
-import LoadingSpinner from "./LoadingSpinner";
-function MyIdeasPage() {
-  const [ideas, setIdeas] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function AdminIdeasPage() {
+  const { user, token } = useAuth(); // Make sure you get token and user
+  const [ideas, setAllIdeas] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const API_URL = import.meta.env.VITE_API_URL;
-    fetch(`${API_URL}/api/my-ideas`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setIdeas(data);
-        } else {
-          setIdeas([]);
-        }
+    const fetchAllIdeas = async () => {
+      try {
+            const API_URL = import.meta.env.VITE_API_URL;
+        const response = await fetch(`${API_URL}/api/ideas/all`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-        setLoading(false);
-      })
-      .catch((err) => {
-        // console.error('Error fetching ideas:', err);
-        setLoading(false);
-      });
-  }, []);
+        if (!response.ok) throw new Error("Failed to fetch ideas");
 
-  const exportIdeaPDF = (idea) => {
-    const doc = new jsPDF();
-    doc.setFontSize(20);
-    doc.text(idea.ideaTitle, 10, 20);
-    doc.setFontSize(12);
-    doc.text(`Submitted By: ${idea.submittedBy}`, 10, 30);
-    doc.text(`Description: ${idea.description}`, 10, 40);
-    doc.text(`Impact: ${idea.impact}`, 10, 50);
-    doc.text(
-      `Submitted On: ${new Date(idea.createdAt).toLocaleDateString()}`,
-      10,
-      60
-    );
-    doc.save(`${idea.ideaTitle}.pdf`);
-  };
-  return loading ? (
-    <LoadingSpinner />
-  ) : (
-    <div>
+        const data = await response.json();
+        setAllIdeas(data);
+      } catch (error) {
+        console.error("Error fetching all ideas:", error);
+      }
+    };
+
+    if (user?.isAdmin) {
+      fetchAllIdeas();
+    }
+  }, [user, token]);
+
+  return (
+      <div>
       <h1
         className="text-xl sm:text-xl font-extrabold text-indigo-700 mb-2"
         style={{ fontSize: "2.5rem", color: "#073763" }}
@@ -101,8 +83,7 @@ function MyIdeasPage() {
             >
               <p>
                 <strong>Idea Title:</strong> {idea.ideaTitle}{" "}
-                <FiFileText
-                 style={{ verticalAlign: "middle" }} />
+                <FiFileText style={{ verticalAlign: "middle" }} />
               </p>
               <p>
                 <strong>Idea Description:</strong> {idea.description}
@@ -116,7 +97,8 @@ function MyIdeasPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <strong>View Idea Profile</strong>
+                  <strong>View Idea Profile:  </strong>
+                  click here
                 </a>
               </p>
               <p>
@@ -126,6 +108,7 @@ function MyIdeasPage() {
                   rel="noopener noreferrer"
                 >
                   <strong>View Financial Report</strong>
+                  click here 
                 </a>
               </p>
               <p>
@@ -133,28 +116,10 @@ function MyIdeasPage() {
                   Submitted on: {new Date(idea.createdAt).toLocaleDateString()}
                 </small>
               </p>
+            <p className="text-sm text-gray-500 mt-2">
+  <strong>Submitted by:</strong> {idea.submittedBy?.firstName || "Unknown"}
+</p>
 
-              <button
-                onClick={() => exportIdeaPDF(idea)}
-                style={{
-                  position: "absolute",
-                  bottom: "10px",
-                  right: "10px",
-                  backgroundColor: "#073763",
-                  color: "white",
-                  border: "none",
-                  padding: "6px 10px",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "4px",
-                }}
-                aria-label={`Download PDF for ${idea.ideaTitle}`}
-              >
-                <FiDownload size={18} />
-                PDF
-              </button>
             </motion.div>
           ))}
         </motion.div>
@@ -162,5 +127,3 @@ function MyIdeasPage() {
     </div>
   );
 }
-
-export default MyIdeasPage;

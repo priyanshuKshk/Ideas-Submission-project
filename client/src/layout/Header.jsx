@@ -9,11 +9,14 @@ import "../index.css";
 import animationData from "../animation/idea.json";
 import { FiLogIn, FiUserPlus } from "react-icons/fi";
 export default function Header() {
-  const { isLoggedIn, user, logout } = useAuth();
+  const { isLoggedIn, user, token , logout } = useAuth();
 
   const [hover, setHover] = useState(false);
 
   const navigate = useNavigate();
+console.log("User:", user);
+console.log("isAdmin:", user?.isAdmin);
+console.log("Token:", token);
 
   const handleLogout = () => {
     logout();
@@ -171,6 +174,7 @@ export default function Header() {
               </button>
             </>
           )}
+
         </nav>
 
         {/* Mobile Menu Button */}

@@ -63,6 +63,8 @@ router.post("/login", async (req, res) => {
         _id: user._id,
         email: user.email,
         firstName: user.firstName,
+        isAdmin: user.isAdmin, 
+        token: generateToken(user),
       },
     });
   } catch (err) {

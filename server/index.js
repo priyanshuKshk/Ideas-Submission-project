@@ -11,7 +11,7 @@ require("dotenv").config();
 app.use(cors({ origin: '*' }));
 const router = express.Router();
 const signupLoginRoutes = require("./routes/signupLogin"); // adjust the path if needed
-const authMiddleware = require("./middleware/authMiddleware");
+const {authMiddleware ,isAdmin} = require("./middleware/authMiddleware");
 const uri = process.env.MONGO_URI;
 
 if (!uri) {
@@ -104,6 +104,18 @@ app.get("/api/my-ideas", authMiddleware, async (req, res) => {
     res.status(200).json(ideas);
   } catch (err) {
     console.error("Error fetching ideas:", err);
+    res.status(500).json({ message: "Server error fetching ideas" });
+  }
+});
+
+app.get("/api/ideas/all", authMiddleware, isAdmin, async (req, res) => {
+  try {
+    const allIdeas = await IdeaModel.find()
+    .sort({ createdAt: -1 })
+     .populate("submittedBy", "firstName email");;
+    res.status(200).json(allIdeas);
+  } catch (err) {
+    console.error("Error fetching all ideas:", err);
     res.status(500).json({ message: "Server error fetching ideas" });
   }
 });

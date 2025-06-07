@@ -20,6 +20,7 @@ import { AuthProvider } from "./context/AuthContext"; // ✅ use relative local 
 import IdeaForm from "./pages/IdeaForm.jsx";
 import MyIdeasPage from "./pages/MyIdeasPage.jsx";
 import Layout from "./layout/Layout.jsx";
+import AdminIdeasPage from "./pages/AdminIdeasPage.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -30,6 +31,8 @@ const router = createBrowserRouter(
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/submit-idea" element={<IdeaForm />} />
       <Route path="/my-ideas" element={<MyIdeasPage />} />
+      <Route path="/admin/ideas" element={<AdminIdeasPage />} />
+
     </Route>
   )
 );

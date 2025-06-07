@@ -25,5 +25,13 @@ const authMiddleware = async (req, res, next) => {
     return res.status(401).json({ message: "Token verification failed" });
   }
 };
+const isAdmin = async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  if (!user || !user.isAdmin) {
+    return res.status(403).json({ error: "Access denied: Admins only" });
+  }
+  next();
+};
 
-module.exports = authMiddleware;
+
+module.exports = {authMiddleware, isAdmin};
