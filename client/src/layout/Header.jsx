@@ -14,9 +14,6 @@ export default function Header() {
   const [hover, setHover] = useState(false);
 
   const navigate = useNavigate();
-console.log("User:", user);
-console.log("isAdmin:", user?.isAdmin);
-console.log("Token:", token);
 
   const handleLogout = () => {
     logout();
